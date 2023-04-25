@@ -37,6 +37,7 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -68,6 +69,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MediRemindTheme {
                 Surface(color = MaterialTheme.colorScheme.background) {
+
                     Scaffold(
                         topBar = { TopAppBar(
                             title = {Text("Ledige beboere", fontSize = 30.sp, fontWeight = FontWeight.W700, modifier = Modifier.padding(10.dp), color = Color.White)}, colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = MaterialTheme.colorScheme.primary))},
@@ -82,6 +84,34 @@ class MainActivity : ComponentActivity() {
 
                         bottomBar = {
                                     BottomAppBar(containerColor = MaterialTheme.colorScheme.primary) {
+                                        androidx.compose.material3.NavigationBar(
+                                            containerColor = MaterialTheme.colorScheme.primary,
+                                        ) {
+                                            bottomNavItems.forEach { item ->
+                                                val selected = false
+
+                                                NavigationBarItem(
+                                                    selected = selected,
+                                                    onClick = { },
+                                                    label = {
+                                                        Text(
+                                                            text = item.name,
+                                                            fontWeight = FontWeight.SemiBold,
+                                                            color = Color.Black
+
+                                                        )
+                                                    },
+                                                    icon = {
+                                                        Icon(
+                                                            imageVector = item.icon,
+                                                            contentDescription = "${item.name} Icon",
+                                                            Modifier,
+                                                            Color.Black
+                                                        )
+                                                    }
+                                                )
+                                            }
+                                        }
 
                                     }
 
@@ -139,9 +169,11 @@ fun PatientRow(patientdata: PatientData){
         Row(verticalAlignment = Alignment.CenterVertically){
         Image(painter = painterResource(id = patientdata.pic), contentDescription = "", contentScale = ContentScale.Crop,            // crop the image if it's not a square
             modifier = Modifier
+                .padding(16.dp)
                 .size(64.dp)
                 .clip(CircleShape)
-                .border(2.dp, Color.Gray, CircleShape))
+                .border(2.dp, Color.Gray, CircleShape)
+                )
         Column(modifier = Modifier
             .padding(all = 10.dp)
             .fillMaxWidth()
