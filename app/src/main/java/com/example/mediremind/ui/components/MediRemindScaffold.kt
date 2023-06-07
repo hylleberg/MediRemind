@@ -30,20 +30,18 @@ fun MediRemindScaffold(
     bottomBar: @Composable (() -> Unit) = {},
     floatingActionButton: @Composable (() -> Unit) = {},
     floatingActionButtonPosition: FabPosition = FabPosition.End,
-    isFloatingActionButtonDocked: Boolean = false,
     backgroundColor: Color = MaterialTheme.colorScheme.background,
     contentColor: Color = MaterialTheme.colorScheme.primary,
     content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
         modifier = modifier,
-      //  scaffoldState = scaffoldState,
         topBar = topBar,
         bottomBar = bottomBar,
-     //   snackbarHost = snackbarHost,
         floatingActionButton = floatingActionButton,
         floatingActionButtonPosition = floatingActionButtonPosition,
         contentColor = contentColor,
         content = content
+
     )
 }
