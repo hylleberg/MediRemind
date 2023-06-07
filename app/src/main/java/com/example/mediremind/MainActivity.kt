@@ -62,6 +62,8 @@ import androidx.compose.ui.unit.sp
 import com.example.mediremind.ui.theme.MediRemindTheme
 
 class MainActivity : ComponentActivity() {
+
+    // TESTING BRANCH
     @OptIn(ExperimentalMaterial3Api::class)
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
