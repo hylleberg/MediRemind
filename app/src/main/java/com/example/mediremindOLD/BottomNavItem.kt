@@ -1,4 +1,4 @@
-package com.example.mediremind
+package com.example.mediremindOLD
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person

@@ -1,4 +1,4 @@
-package com.example.mediremind
+package com.example.mediremindOLD
 
 import android.graphics.drawable.Drawable
 
