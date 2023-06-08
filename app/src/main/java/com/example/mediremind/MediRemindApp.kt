@@ -8,10 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Edit
+
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Menu
@@ -52,9 +49,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.mediremind.model.BottomNavItem
 import com.example.mediremind.model.NavigationItem
-import com.example.mediremind.model.bottomNavItems
 import com.example.mediremind.theme.components.MediRemindScaffold
 import com.example.mediremind.ui.components.MediRemindNavBar
 import com.example.mediremind.ui.components.MediRemindTopBar
@@ -64,10 +59,7 @@ import com.example.mediremind.ui.screens.patientlist.PatientListScreen
 import com.example.mediremind.ui.theme.MediRemindTheme
 
 
-
-
 @OptIn(ExperimentalMaterial3Api::class)
-
 @Composable
 fun MediRemindApp() {
 
@@ -76,39 +68,40 @@ fun MediRemindApp() {
         val navController = rememberNavController()
         MediRemindScaffold(
             topBar = {
-                     MediRemindTopBar(
-                         title = {
-                                 Text("Mediremind Home")
-                         },
-                         navigationIcon = {
-                             IconButton(onClick = { /* doSomething() */ }) {
-                                 Icon(
-                                     imageVector = Icons.Filled.Home,
-                                     contentDescription = "Localized description"
-                                 )
-                             }
-                         },
-                     )
+                MediRemindTopBar(
+                    title = {
+                        Text("MediRemind Home")
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = { /* doSomething() */ }) {
+                            Icon(
+                                imageVector = Icons.Filled.Home,
+                                contentDescription = "Localized description"
+                            )
+                        }
+                    },
+                )
 
             },
-/*            floatingActionButtonPosition = FabPosition.Center,
-            floatingActionButton = { ExtendedFloatingActionButton(
-                onClick = { /* do something */ },
-                icon = { Icon(Icons.Filled.CheckCircle, "placeholder", Modifier, Color.Green) },
-                text = { Text(text = "Bekræft valg") },
-                containerColor = MaterialTheme.colorScheme.primary,
-            ) },*/
+            /*            floatingActionButtonPosition = FabPosition.Center,
+                        floatingActionButton = { ExtendedFloatingActionButton(
+                            onClick = { /* do something */ },
+                            icon = { Icon(Icons.Filled.CheckCircle, "placeholder", Modifier, Color.Green) },
+                            text = { Text(text = "Bekræft valg") },
+                            containerColor = MaterialTheme.colorScheme.primary,
+                        ) },*/
 
 
-            bottomBar = {MediRemindNavBar(navController)},
-            content = {
-                    innerPadding -> // We have to pass the scaffold inner padding to our content. That's why we use Box.
+            bottomBar = { MediRemindNavBar(navController) },
+            content = { innerPadding ->
                 Box(modifier = Modifier.padding(20.dp)) {
                     Navigation(navController = navController)
                 }
-                }
+            }
 
-            )}}
+        )
+    }
+}
 
 
 
