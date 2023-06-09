@@ -17,20 +17,13 @@ class HomeScreenViewModel @Inject constructor() : ViewModel() {
     fun onCounterClicked(){
 
        // _state.value = _state.value.copy(counter = _state.value.counter+1)
-
-
         _state.update { currentState ->
-
             val lastCounterValue = currentState.counter
             val nextCounterValue = lastCounterValue+1
 
             val nextState = currentState.copy(counter = nextCounterValue)
             nextState
-
-
-
         }
-
     }
 
     fun onTitleClicked(){
@@ -38,8 +31,6 @@ class HomeScreenViewModel @Inject constructor() : ViewModel() {
 
             val nextState = currentState.copy(title = "Ny test haklkløj")
             nextState
-
-
 
         }
 
