@@ -80,22 +80,8 @@ import androidx.compose.runtime.SideEffect
 @Composable
 fun MediRemindApp() {
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Hardcoded set alarm - needs implemented as automatically set n-alarms for n-medications from n-patients
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     val context = LocalContext.current
-    val alarmScheduler: AlarmScheduler = AlarmSchedulerImpl(context)
-    var alarmItem: AlarmItem? = null
 
-    alarmItem = AlarmItem(
-        alarmTime = LocalDateTime.now().plusSeconds(
-            10
-        ),
-        message = "Ove Sprogdøv skal have sin medicin!"
-    )
-    alarmItem?.let(alarmScheduler::schedule)
-
-   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     MediRemindTheme() {
         val navController = rememberNavController()
         MediRemindScaffold(

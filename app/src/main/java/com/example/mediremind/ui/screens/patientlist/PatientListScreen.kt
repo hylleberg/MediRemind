@@ -29,26 +29,29 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.mediremind.alarm.setAlarm
 import com.example.mediremind.ui.components.PatientCard
 import com.example.mediremind.mockdata.PatientData
 import com.example.mediremind.mockdata.patientList
 
 import com.example.mediremind.patients_test
 import com.example.mediremind.ui.screens.home.HomeScreenViewModel
+import java.time.LocalDateTime
 
 @Composable
 fun PatientListScreen(viewModel: PatientListViewModel = hiltViewModel()) {
     // Composable, der emitter til UI
     // Kalder til nogle View-model metoder, der hiver data fra en model
     val patientListState = viewModel.state.collectAsState().value
-    var context2 = LocalContext.current
+    var context = LocalContext.current
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(16.dp)
     ) {
         item {
             Row(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .wrapContentHeight()
                     .padding(vertical = 25.dp),
                 horizontalArrangement = Arrangement.Start,
@@ -70,9 +73,10 @@ fun PatientListScreen(viewModel: PatientListViewModel = hiltViewModel()) {
             modifier = Modifier
                 .padding(all = 16.dp)
                 .align(alignment = Alignment.BottomEnd)
-                .offset(x = -10.dp,  y = -70.dp),
+                .offset(x = -10.dp, y = -70.dp),
             onClick = {
-                Toast.makeText(context2, "Click", Toast.LENGTH_SHORT)
+                setAlarm(name = "Hanna", medication = "Kokain" , time = LocalDateTime.now().plusSeconds(5), context)
+                Toast.makeText(context, "Click", Toast.LENGTH_SHORT)
                     .show()
 
             }
