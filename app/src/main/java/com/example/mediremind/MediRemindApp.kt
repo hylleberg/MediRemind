@@ -1,6 +1,9 @@
 package com.example.mediremind
 
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -38,17 +41,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.mediremind.alarm.AlarmItem
+import com.example.mediremind.alarm.AlarmScheduler
+import com.example.mediremind.alarm.AlarmSchedulerImpl
 import com.example.mediremind.model.NavigationItem
 import com.example.mediremind.theme.components.MediRemindScaffold
 import com.example.mediremind.ui.components.MediRemindNavBar
@@ -57,20 +65,44 @@ import com.example.mediremind.ui.components.Navigation
 import com.example.mediremind.ui.screens.home.HomeScreen
 import com.example.mediremind.ui.screens.patientlist.PatientListScreen
 import com.example.mediremind.ui.theme.MediRemindTheme
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberPermissionState
+import java.time.LocalDateTime
+import android.Manifest
+import android.content.Context
+import android.util.Log
+import androidx.activity.compose.ManagedActivityResultLauncher
+import androidx.activity.result.ActivityResultLauncher
+import androidx.compose.runtime.SideEffect
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
 fun MediRemindApp() {
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Hardcoded set alarm - needs implemented as automatically set n-alarms for n-medications from n-patients
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    val context = LocalContext.current
+    val alarmScheduler: AlarmScheduler = AlarmSchedulerImpl(context)
+    var alarmItem: AlarmItem? = null
 
+    alarmItem = AlarmItem(
+        alarmTime = LocalDateTime.now().plusSeconds(
+            10
+        ),
+        message = "Ove Sprogdøv skal have sin medicin!"
+    )
+    alarmItem?.let(alarmScheduler::schedule)
+
+   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     MediRemindTheme() {
         val navController = rememberNavController()
         MediRemindScaffold(
             topBar = {
                 MediRemindTopBar(
                     title = {
-                        Text("MediRemind Home")
+                        Text("MediRemind")
                     },
                     navigationIcon = {
                         IconButton(onClick = { /* doSomething() */ }) {
@@ -83,27 +115,54 @@ fun MediRemindApp() {
                 )
 
             },
-            /*            floatingActionButtonPosition = FabPosition.Center,
-                        floatingActionButton = { ExtendedFloatingActionButton(
-                            onClick = { /* do something */ },
-                            icon = { Icon(Icons.Filled.CheckCircle, "placeholder", Modifier, Color.Green) },
-                            text = { Text(text = "Bekræft valg") },
-                            containerColor = MaterialTheme.colorScheme.primary,
-                        ) },*/
+            /*           ,*/
 
 
             bottomBar = { MediRemindNavBar(navController) },
             content = { innerPadding ->
                 Box(modifier = Modifier.padding(20.dp)) {
                     Navigation(navController = navController)
+
+                    launcher(context)
+
                 }
             }
 
         )
     }
 }
+@Composable
+fun launcher(context: Context){
 
+    val launcher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            Log.e("Permission", "Permissions granted!")
+        } else {
+            Log.e("Permission", "Permissions not granted :(")
+        }
 
+    }
+    checkAndRequestCameraPermission(context = context, permission = Manifest.permission.POST_NOTIFICATIONS, launcher = launcher)
+}
 
+@Composable
+fun checkAndRequestCameraPermission(
+    context: Context,
+    permission: String,
+    launcher: ManagedActivityResultLauncher<String, Boolean>
+) {
+    val permissionCheckResult = ContextCompat.checkSelfPermission(context, permission)
+    if (permissionCheckResult == PackageManager.PERMISSION_GRANTED) {
+        // do nothing
+    } else {
+        // Request a permission
+        SideEffect {
+            launcher.launch(permission)
+        }
+
+    }
+}
 
 

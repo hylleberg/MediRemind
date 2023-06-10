@@ -45,16 +45,7 @@ fun HomeScreen(viewModel: HomeScreenViewModel = hiltViewModel()) {
                 }
         )
 
-        Text(
-            text = homeState.patientList[homeState.counter].cpr,
-            modifier = androidx.compose.ui.Modifier
-                .padding(2.dp)
-                .wrapContentSize()
-                .clickable {
-                    viewModel.onCounterClicked()
 
-                }
-        )
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.mediremind.ui.components
 
+import android.content.Context
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material3.BottomAppBar
@@ -13,6 +14,7 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,7 +26,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.mediremind.model.NavigationItem
 import com.example.mediremind.ui.screens.home.HomeScreen
+import com.example.mediremind.ui.screens.mypatients.MyPatientsScreen
 import com.example.mediremind.ui.screens.patientlist.PatientListScreen
+import com.example.mediremind.mockdata.PatientData
 
 @OptIn(ExperimentalMaterial3Api::class)
 
@@ -33,6 +37,7 @@ fun MediRemindNavBar(navController: NavController) {
     val items = listOf(
         NavigationItem.Home,
         NavigationItem.PatientList,
+        NavigationItem.MyPatients,
 
         )
     NavigationBar(
@@ -58,18 +63,13 @@ fun MediRemindNavBar(navController: NavController) {
                 onClick = {
 
                     navController.navigate(item.route) {
-                        // Pop up to the start destination of the graph to
-                        // avoid building up a large stack of destinations
-                        // on the back stack as users select items
                         navController.graph.startDestinationRoute?.let { route ->
                             popUpTo(route) {
-                            //    saveState = true
+                               saveState = true
                             }
                         }
-                        // Avoid multiple copies of the same destination when
-                        // reselecting the same item
+
                         launchSingleTop = true
-                        // Restore state when reselecting a previously selected item
                         restoreState = true
                     }
                 }
@@ -86,6 +86,9 @@ fun Navigation(navController: NavHostController) {
         }
         composable(NavigationItem.PatientList.route) {
             PatientListScreen()
+        }
+        composable(NavigationItem.MyPatients.route) {
+            MyPatientsScreen()
         }
     }
 }
