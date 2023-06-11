@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.mediremind.mockdata.PatientData
 import java.time.LocalDateTime
 
 import com.example.mediremind.ui.screens.patientlist.PatientListViewModel
@@ -27,38 +28,31 @@ import com.example.mediremind.ui.screens.patientlist.model.PatientListState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PatientCard(name: String, patientListState: PatientListState,viewModel: PatientListViewModel) {
+fun PatientCard(patientModel: PatientData, onItemClick: (Int) -> Unit) {
+    val backgroundColor = if(!patientModel.selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.onPrimaryContainer
+
 
     Card(
         modifier = Modifier
             .padding(10.dp)
             .fillMaxWidth()
             .wrapContentHeight(),
-        colors = CardDefaults.cardColors(containerColor = patientListState.color),
+        colors = CardDefaults.cardColors(containerColor = backgroundColor),
         onClick = {
-            if(patientListState.selected == false){
-                viewModel.selectCard()
-            }else{
-                viewModel.unselectCard()
-            }
-
-
-
+            onItemClick(patientModel.identifier)
         }
-    ){
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-        ){
+        ) {
             Text(
-                text = name,
+                text = patientModel.name,
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(20.dp)
             )
         }
 
 
-
     }
-
 
 }

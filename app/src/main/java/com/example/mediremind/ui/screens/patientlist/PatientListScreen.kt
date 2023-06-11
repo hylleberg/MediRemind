@@ -64,8 +64,10 @@ fun PatientListScreen(viewModel: PatientListViewModel = hiltViewModel()) {
                 )
             }
         }
-        items(patientList) { patient ->
-            PatientCard(patient.name, patientListState, viewModel)
+        items(patientListState.pList) { patient ->
+            PatientCard(patient){
+                viewModel.onCardClick(it)
+            }
         }
     }
     Box(modifier = Modifier.fillMaxSize()) {
