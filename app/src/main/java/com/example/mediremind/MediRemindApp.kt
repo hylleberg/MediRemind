@@ -57,7 +57,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.mediremind.alarm.AlarmItem
 import com.example.mediremind.alarm.AlarmScheduler
 import com.example.mediremind.alarm.AlarmSchedulerImpl
-import com.example.mediremind.model.NavigationItem
+import com.example.mediremind.data.model.NavigationItem
 import com.example.mediremind.theme.components.MediRemindScaffold
 import com.example.mediremind.ui.components.MediRemindNavBar
 import com.example.mediremind.ui.components.MediRemindTopBar

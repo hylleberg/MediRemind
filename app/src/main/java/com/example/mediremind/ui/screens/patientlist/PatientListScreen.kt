@@ -21,7 +21,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,11 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mediremind.alarm.setAlarm
 import com.example.mediremind.ui.components.PatientCard
-import com.example.mediremind.mockdata.PatientData
-import com.example.mediremind.mockdata.patientList
-
-import com.example.mediremind.patients_test
-import com.example.mediremind.ui.screens.home.HomeScreenViewModel
 import java.time.LocalDateTime
 
 @Composable
@@ -60,7 +54,6 @@ fun PatientListScreen(viewModel: PatientListViewModel = hiltViewModel()) {
                 Text(
                     text = "Tilgængelige borgere",
                     style = MaterialTheme.typography.headlineMedium
-
                 )
             }
         }
@@ -77,9 +70,9 @@ fun PatientListScreen(viewModel: PatientListViewModel = hiltViewModel()) {
                 .align(alignment = Alignment.BottomEnd)
                 .offset(x = -10.dp, y = -70.dp),
             onClick = {
-                setAlarm(name = "Hanna", medication = "Kokain" , time = LocalDateTime.now().plusSeconds(5), context)
-                Toast.makeText(context, "Click", Toast.LENGTH_SHORT)
-                    .show()
+               // setAlarm(name = "Hanna", medication = "Kokain" , time = LocalDateTime.now().plusSeconds(5), context)
+               // Toast.makeText(context, "Click", Toast.LENGTH_SHORT)
+               //     .show()
 
             }
         ) {

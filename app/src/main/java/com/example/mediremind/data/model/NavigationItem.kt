@@ -1,4 +1,4 @@
-package com.example.mediremind.model
+package com.example.mediremind.data.model
 
 import android.graphics.drawable.Icon
 import androidx.compose.material.icons.Icons

@@ -1,4 +1,4 @@
-package com.example.mediremind.mockdata
+package com.example.mediremind.data.mockdata
 
 import java.time.LocalDateTime
 

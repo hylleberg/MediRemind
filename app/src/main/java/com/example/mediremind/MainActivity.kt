@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.core.content.ContextCompat
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
@@ -20,6 +21,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MediRemindApp()
+
 
         }
 
