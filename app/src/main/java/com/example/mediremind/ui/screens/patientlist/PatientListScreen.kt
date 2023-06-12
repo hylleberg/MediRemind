@@ -72,9 +72,9 @@ fun PatientListScreen(viewModel: PatientListViewModel = hiltViewModel()) {
                 .offset(x = -10.dp, y = -70.dp),
             onClick = {
                 viewModel.getDataFromRepository()
-               // setAlarm(name = "Hanna", medication = "Kokain" , time = LocalDateTime.now().plusSeconds(5), context)
-               // Toast.makeText(context, "Click", Toast.LENGTH_SHORT)
-               //     .show()
+               setAlarm(name = "Hanna", medication = "Kokain" , time = LocalDateTime.now().plusSeconds(5), context)
+               Toast.makeText(context, "Click", Toast.LENGTH_SHORT)
+                   .show()
 
             }
         ) {
