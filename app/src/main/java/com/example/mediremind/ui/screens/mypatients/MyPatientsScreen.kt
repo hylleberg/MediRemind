@@ -20,6 +20,7 @@ import com.example.mediremind.ui.components.MyPatientsCard
 @Composable
 fun MyPatientsScreen() {
 
+
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(16.dp)
@@ -35,15 +36,11 @@ fun MyPatientsScreen() {
                 Text(
                     text = "Mine patienter",
                     style = MaterialTheme.typography.headlineMedium
-
                 )
             }
         }
         items(testDataList) { testDataItem ->
             MyPatientsCard(testDataItem.name, testDataItem.age)
-
         }
     }
-
-
 }

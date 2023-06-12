@@ -16,10 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.mediremind.data.model.PatientData
+import com.example.mediremind.data.model.PatientDataDB
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PatientCard(patientModel: PatientData, onItemClick: (Int) -> Unit) {
+fun PatientCard(patientModel: PatientDataDB, onItemClick: (Int) -> Unit) {
     val backgroundColor = if(!patientModel.selected) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.secondary
 
 
