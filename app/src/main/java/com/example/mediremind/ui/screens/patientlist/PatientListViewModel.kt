@@ -27,5 +27,10 @@ class PatientListViewModel @Inject constructor(val repository: PatientRepository
         }
     }
 
+    fun getDataFromRepository(){
+        repository.getPatients();
+
+    }
+
 
 }

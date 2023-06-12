@@ -7,7 +7,7 @@ data class PatientData(
     val CPR: String,
     val name: String,
     val assigned: Boolean,
-    val medicindata: List<MedicinData>,
+    val medication: List<MedicinData>,
     val selected: Boolean,
     val identifier: Int
 )

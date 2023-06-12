@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -70,13 +71,14 @@ fun PatientListScreen(viewModel: PatientListViewModel = hiltViewModel()) {
                 .align(alignment = Alignment.BottomEnd)
                 .offset(x = -10.dp, y = -70.dp),
             onClick = {
+                viewModel.getDataFromRepository()
                // setAlarm(name = "Hanna", medication = "Kokain" , time = LocalDateTime.now().plusSeconds(5), context)
                // Toast.makeText(context, "Click", Toast.LENGTH_SHORT)
                //     .show()
 
             }
         ) {
-            Icon(imageVector = Icons.Filled.Add, contentDescription = "Add")
+            Icon(imageVector = Icons.Filled.CheckCircle, contentDescription = "Add")
         }
     }
 }
