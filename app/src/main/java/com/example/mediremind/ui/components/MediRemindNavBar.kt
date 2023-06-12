@@ -28,6 +28,7 @@ fun MediRemindNavBar(navController: NavController) {
         NavigationItem.Home,
         NavigationItem.PatientList,
         NavigationItem.MyPatients,
+        NavigationItem.Medication
 
         )
     NavigationBar(
@@ -79,6 +80,11 @@ fun Navigation(navController: NavHostController) {
         }
         composable(NavigationItem.MyPatients.route) {
             MyPatientsScreen()
+        }
+
+        composable(NavigationItem.Medication.route)
+        {
+            //MedicationScreen()
         }
     }
 }

@@ -38,7 +38,7 @@ fun PatientListScreen(viewModel: PatientListViewModel = hiltViewModel()) {
     // Composable, der emitter til UI
     // Kalder til nogle View-model metoder, der hiver data fra en model
     val patientListState = viewModel.state.collectAsState().value
-    var context = LocalContext.current
+    val context = LocalContext.current
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(16.dp)
@@ -72,9 +72,9 @@ fun PatientListScreen(viewModel: PatientListViewModel = hiltViewModel()) {
                 .offset(x = -10.dp, y = -70.dp),
             onClick = {
                 viewModel.getDataFromRepository()
-               // setAlarm(name = "Hanna", medication = "Kokain" , time = LocalDateTime.now().plusSeconds(5), context)
-               // Toast.makeText(context, "Click", Toast.LENGTH_SHORT)
-               //     .show()
+              setAlarm(name = "Hanna", medication = "Kokain" , time = LocalDateTime.now().plusSeconds(5), context)
+            Toast.makeText(context, "Click", Toast.LENGTH_SHORT)
+            .show()
 
             }
         ) {
