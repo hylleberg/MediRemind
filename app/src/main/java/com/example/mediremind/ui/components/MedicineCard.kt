@@ -2,6 +2,7 @@ package com.example.mediremind.ui.components
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,7 +26,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.*
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.wear.compose.material3.ContentAlpha
 
@@ -33,6 +36,8 @@ import androidx.wear.compose.material3.ContentAlpha
 @Composable
 fun MedicineCard() {
     var expandedState by remember {mutableStateOf(false) }
+    val rotationState by animateFloatAsState(
+        targetValue = if(expandedState) 180f else 0f)
 
     Card(
         modifier = Modifier
@@ -41,10 +46,10 @@ fun MedicineCard() {
             // .wrapContentHeight()
             .animateContentSize(
                 animationSpec = tween(
-                    delayMillis = 300,
+                    durationMillis = 300,
                     easing = LinearOutSlowInEasing
                 )
-                    ),
+            ),
                 shape = RoundedCornerShape(0.dp),
                 onClick = {
                     expandedState = !expandedState
@@ -62,14 +67,23 @@ fun MedicineCard() {
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
+                    modifier = Modifier
+                        .padding(20.dp)
+                        .weight(6f),
                     text = "Medicinnavn",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(20.dp)
+                    // Begrænser teksten til max én linje
+                    maxLines = 1,
+                    // Hvis man skriver mere end én linje, laver den "..."
+                    overflow = TextOverflow.Ellipsis
+
                 )
                 IconButton(
                     modifier = Modifier
-                        .alpha(ContentAlpha.medium),
+                        .alpha(ContentAlpha.medium)
+                        .weight(1f)
+                        .rotate(rotationState),
                     onClick = {
                         expandedState = !expandedState
                     } ) {
@@ -80,8 +94,16 @@ fun MedicineCard() {
                 }
 
 
-        }
-
+            }
+            if(expandedState){
+                Text(
+                    text = "Medicinen er nice. Spis. Spis. Spis.",
+                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                    fontWeight = FontWeight.Normal,
+                    maxLines = 4,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
 
 
 
