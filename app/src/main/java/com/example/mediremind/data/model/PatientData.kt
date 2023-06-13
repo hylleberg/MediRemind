@@ -16,15 +16,15 @@ data class PatientData(
 val patientList = listOf(
     PatientData(
         "123456789","Henrik Bechmann", false, listOf(
-            MedicineData("Paracetamol", LocalDateTime.now().plusSeconds(10)),
-            MedicineData("Rexulti", LocalDateTime.now().plusSeconds(5))
+            MedicineData("Paracetamol", "1 tabl.", LocalDateTime.now().plusSeconds(10), "Oralt"),
+            MedicineData("Rexulti", "2 tabl.",  LocalDateTime.now().plusSeconds(5), "Rektalt")
 
         ), false, 0
     ),
     PatientData(
         "987654321","Roger Munckwood", false, listOf(
-            MedicineData("Innovair", LocalDateTime.now().plusSeconds(15)),
-            MedicineData("Minoxidil", LocalDateTime.now().plusSeconds(20))
+            MedicineData("Innovair", "3 kg.",  LocalDateTime.now().plusSeconds(15), "i.m."),
+            MedicineData("Minoxidil", "1 sprøjte", LocalDateTime.now().plusSeconds(20), "i.v.")
 
         ), false, 1
     )

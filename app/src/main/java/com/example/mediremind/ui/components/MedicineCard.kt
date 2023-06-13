@@ -31,10 +31,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.wear.compose.material3.ContentAlpha
+import com.example.mediremind.data.mockdata.MedicineData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MedicineCard() {
+fun MedicineCard(medicineModel: MedicineData) {
     var expandedState by remember {mutableStateOf(false) }
     val rotationState by animateFloatAsState(
         targetValue = if(expandedState) 180f else 0f)
@@ -70,7 +71,7 @@ fun MedicineCard() {
                     modifier = Modifier
                         .padding(20.dp)
                         .weight(6f),
-                    text = "Medicinnavn",
+                    text = medicineModel.medication,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     // Begrænser teksten til max én linje
@@ -97,7 +98,7 @@ fun MedicineCard() {
             }
             if(expandedState){
                 Text(
-                    text = "Medicinen er nice. Spis. Spis. Spis.",
+                    text = medicineModel.medadm,
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                     fontWeight = FontWeight.Normal,
                     maxLines = 4,
@@ -114,9 +115,10 @@ fun MedicineCard() {
 
 }
 
-@ExperimentalMaterial3Api
+/* @ExperimentalMaterial3Api
 @Composable
 @Preview
 fun MedicineCardPreview(){
     MedicineCard()
-}
+} 
+*/
