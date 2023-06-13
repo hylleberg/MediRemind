@@ -22,12 +22,10 @@ class PatientListViewModel @Inject constructor(val repository: PatientRepository
 
     init {
         viewModelScope.launch {
-            repository.getPatients(){
+            repository.getPatients() {
                 _state.value = PatientListState.Success(it)
             }
-
         }
-
     }
 
     fun onCardClick(identifier: Int) {
@@ -42,14 +40,14 @@ class PatientListViewModel @Inject constructor(val repository: PatientRepository
                 currentState.copy(patientList = tempList)
 
             } else {
-               currentState
+                currentState
             }
 
         }
     }
 
     fun getDataFromRepository() {
-      //  repository.getPatients();
+        //  repository.getPatients();
 
     }
 
