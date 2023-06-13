@@ -49,7 +49,7 @@ fun MedicineCard(medicineModel: MedicineData) {
 
     Card(
         modifier = Modifier
-            // .padding(10.dp)
+            .padding(10.dp)
             .fillMaxWidth()
             // .wrapContentHeight()
             .animateContentSize(
@@ -158,7 +158,7 @@ fun MedicineCard(medicineModel: MedicineData) {
         if(expandedState){
             Text(modifier = Modifier
                 .padding(horizontal = 12.dp, vertical = 2.dp),
-                text = medicineModel.medadm,
+                text = "Administrationsvej: " + medicineModel.medadm,
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 fontWeight = FontWeight.Normal,
                 maxLines = 4,
