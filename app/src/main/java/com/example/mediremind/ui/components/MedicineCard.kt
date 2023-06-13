@@ -75,7 +75,33 @@ fun MedicineCard(medicineModel: MedicineData) {
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     // Begrænser teksten til max én linje
-                    maxLines = 1,
+                   // maxLines = 1,
+                    // Hvis man skriver mere end én linje, laver den "..."
+                    overflow = TextOverflow.Ellipsis
+
+                )
+                Text(
+                    modifier = Modifier
+                        .padding(20.dp)
+                        .weight(6f),
+                    text = medicineModel.dose,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    // Begrænser teksten til max én linje
+                    // maxLines = 1,
+                    // Hvis man skriver mere end én linje, laver den "..."
+                    overflow = TextOverflow.Ellipsis
+
+                )
+                Text(
+                    modifier = Modifier
+                        .padding(20.dp)
+                        .weight(6f),
+                    text = medicineModel.time.toString(),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    // Begrænser teksten til max én linje
+                   // maxLines = 1,
                     // Hvis man skriver mere end én linje, laver den "..."
                     overflow = TextOverflow.Ellipsis
 
@@ -120,5 +146,5 @@ fun MedicineCard(medicineModel: MedicineData) {
 @Preview
 fun MedicineCardPreview(){
     MedicineCard()
-} 
+}
 */
