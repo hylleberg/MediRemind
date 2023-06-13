@@ -84,7 +84,7 @@ fun Navigation(navController: NavHostController) {
 
         }
         composable(NavigationItem.Medication.route) {
-            MedicineListScreen()
+            MedicineListScreen(navController=navController)
         }
     }
 }
