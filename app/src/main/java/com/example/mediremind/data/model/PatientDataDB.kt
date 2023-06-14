@@ -7,5 +7,5 @@ data class PatientDataDB(
     val cpr: String = "",
     val name: String = "",
     val identifier: Int = 0,
-    val selected: Boolean = false
+    val selected: Boolean = false,
 )

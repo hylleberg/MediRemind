@@ -20,6 +20,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -53,8 +54,7 @@ import com.example.mediremind.ui.screens.patientlist.model.PatientListState
 import java.time.LocalDateTime
 
 @Composable
-fun MyPatientsScreen(viewModel: MyPatientsScreenViewModel = hiltViewModel()) {
-
+fun MyPatientsScreen(viewModel: MyPatientsScreenViewModel = hiltViewModel(), onNavigateToMedicineScreen: () -> Unit) {
 
 
     val myPatientScreenState = viewModel.state.collectAsState().value
@@ -99,7 +99,16 @@ fun MyPatientsScreen(viewModel: MyPatientsScreenViewModel = hiltViewModel()) {
                         .padding(vertical = 40.dp),
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.Top
-                ){}
+                ) {}
+                Button(onClick = {
+
+                    onNavigateToMedicineScreen()
+
+                }){
+                    Text(text = "KNAP")
+
+
+                }
             }
             items(myPatientScreenState.patientList) { patient ->
                 MyPatientsCard(patient) {
@@ -129,20 +138,22 @@ fun MyPatientsScreen(viewModel: MyPatientsScreenViewModel = hiltViewModel()) {
                     }
                     viewModel.unassignPatient(tempIdList)
 
-                   /* setAlarm(
-                        name = "Hanna",
-                        medication = "Kokain",
-                        time = LocalDateTime.now().plusSeconds(5),
-                        context
-                    )
-                    Toast.makeText(context, "Click", Toast.LENGTH_SHORT)
-                        .show()*/
+                    /* setAlarm(
+                         name = "Hanna",
+                         medication = "Kokain",
+                         time = LocalDateTime.now().plusSeconds(5),
+                         context
+                     )
+                     Toast.makeText(context, "Click", Toast.LENGTH_SHORT)
+                         .show()*/
 
                 }
             ) {
                 Icon(imageVector = Icons.Filled.Delete, contentDescription = "Add")
             }
         }
+
+
     } else {
         Column(
             modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,

@@ -31,8 +31,6 @@ fun MediRemindNavBar(navController: NavController) {
         NavigationItem.Home,
         NavigationItem.PatientList,
         NavigationItem.MyPatients,
-        NavigationItem.Medication
-
         )
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.primary,
@@ -55,7 +53,6 @@ fun MediRemindNavBar(navController: NavController) {
                 selected = currentRoute == item.route,
 
                 onClick = {
-
                     navController.navigate(item.route) {
                         navController.graph.startDestinationRoute?.let { route ->
                             popUpTo(route) {
@@ -84,7 +81,7 @@ fun Navigation(navController: NavHostController) {
             }
 
         composable(NavigationItem.MyPatients.route) {
-            MyPatientsScreen()
+            MyPatientsScreen(onNavigateToMedicineScreen = {navController.navigate(NavigationItem.Medication.route){navController.popBackStack()}})
 
         }
         composable(NavigationItem.Medication.route) {
@@ -92,9 +89,5 @@ fun Navigation(navController: NavHostController) {
             {navController.navigate(NavigationItem.MyPatients.route){navController.popBackStack()}})
         }
 
-        composable(NavigationItem.Medication.route)
-        {
-
-        }
     }
 }
