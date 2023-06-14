@@ -19,6 +19,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.mediremind.data.model.NavigationItem
 import com.example.mediremind.ui.screens.home.HomeScreen
+import com.example.mediremind.ui.screens.medicinelist.MedicineListScreen
 import com.example.mediremind.ui.screens.mypatients.MyPatientsScreen
 import com.example.mediremind.ui.screens.patientlist.PatientListScreen
 
@@ -84,6 +85,11 @@ fun Navigation(navController: NavHostController) {
 
         composable(NavigationItem.MyPatients.route) {
             MyPatientsScreen()
+
+        }
+        composable(NavigationItem.Medication.route) {
+            MedicineListScreen(onNavigateToMyPatientsScreen =
+            {navController.navigate(NavigationItem.MyPatients.route){navController.popBackStack()}})
         }
 
         composable(NavigationItem.Medication.route)
