@@ -43,8 +43,13 @@ fun MedicineCard(medicineModel: MedicineData) {
     var expandedState by remember {mutableStateOf(false) }
     val rotationState by animateFloatAsState(
         targetValue = if(expandedState) 180f else 0f)
-    val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
-    val formattedDate: String = dateTimeFormatter.format(medicineModel.time)
+
+  //  val localDateTimeConv: String = medicineModel.medtime.toString()
+  //  val formatter = DateTimeFormatter.ofPattern("hh:mm a")
+  //  val conv: LocalDateTime = LocalDateTime.parse(localDateTimeConv, formatter)
+
+   //  val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+   //  val formattedDate: String = dateTimeFormatter.format(medicineModel.medtime.toString())
     val backgroundColor = MaterialTheme.colorScheme.secondaryContainer
 
     Card(
@@ -84,7 +89,7 @@ fun MedicineCard(medicineModel: MedicineData) {
                     modifier = Modifier
                         // .padding(1.dp)
                         .weight(2f),
-                    text = medicineModel.medication,
+                    text = medicineModel.medname,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     // Begrænser teksten til max én linje
@@ -98,7 +103,8 @@ fun MedicineCard(medicineModel: MedicineData) {
                     modifier = Modifier
                         // .padding(20.dp)
                         .weight(2f),
-                    text = formattedDate,
+                    text = "asdgasd",
+//                text = conv.toString(),
                     style = MaterialTheme.typography.titleMedium,
                     // fontWeight = FontWeight.Bold,
                     // Begrænser teksten til max én linje
@@ -131,7 +137,7 @@ fun MedicineCard(medicineModel: MedicineData) {
                     modifier = Modifier
                         // .padding(1.dp)
                     .weight(6f),
-                    text = medicineModel.dose,
+                    text = medicineModel.meddose,
                     style = MaterialTheme.typography.titleMedium,
                     // fontWeight = FontWeight.Bold,
                     // Begrænser teksten til max én linje

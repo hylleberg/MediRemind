@@ -1,14 +1,20 @@
 package com.example.mediremind.ui.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,18 +41,37 @@ fun MyPatientsCard(patientModel: PatientDataDB, onItemClick: (Int) -> Unit) {
         onClick = {
             onItemClick(patientModel.identifier)
         }
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
+    ){
+    Row(
+        verticalAlignment = Alignment.Top,
+        modifier = Modifier
+            .padding(20.dp),
+    )
+    {
+        Column(modifier = Modifier.fillMaxWidth(0.9f)) {
             Text(
                 text = patientModel.name,
                 style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(20.dp)
+
+                )
+            Text(
+                text = patientModel.cpr,
+                style = MaterialTheme.typography.titleSmall,
             )
+
+
+        }
+        Row(
+            horizontalArrangement = Arrangement.End,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(imageVector = Icons.Filled.Close, contentDescription = "delete")
+
         }
 
 
     }
+
+}
 
 }

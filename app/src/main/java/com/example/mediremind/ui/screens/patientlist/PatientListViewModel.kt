@@ -1,12 +1,8 @@
 package com.example.mediremind.ui.screens.patientlist
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.lifecycle.LifecycleOwner
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mediremind.data.model.PatientDataDB
-import com.example.mediremind.data.model.patientList
 import com.example.mediremind.data.repo.PatientRepository
 import com.example.mediremind.ui.screens.patientlist.model.PatientListState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,6 +27,7 @@ class PatientListViewModel @Inject constructor(val repository: PatientRepository
         viewModelScope.launch {
             _state.value = PatientListState.Loading
             delay(200)
+
             repository.getUnselectedPatients() {
                 _state.value = PatientListState.Success(it)
             }

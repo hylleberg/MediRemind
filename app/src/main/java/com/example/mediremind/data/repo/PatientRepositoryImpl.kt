@@ -1,7 +1,8 @@
 package com.example.mediremind.data.repo
 
 import android.util.Log
-import com.example.mediremind.data.model.PatientData
+import com.example.mediremind.data.mockdata.MedicineData
+
 import com.example.mediremind.data.model.PatientDataDB
 import com.example.mediremind.ui.screens.patientlist.model.PatientListState
 import com.google.firebase.firestore.CollectionReference
@@ -20,7 +21,10 @@ class PatientRepositoryImpl @Inject constructor(val database: FirebaseFirestore)
                 for (document in it) {
                     val patient = document.toObject(PatientDataDB::class.java)
                     ptList.add(patient)
+
+
                 }
+
                 // return List<PatientDataDB>, success case
                 result.invoke(
                     ptList
@@ -39,6 +43,34 @@ class PatientRepositoryImpl @Inject constructor(val database: FirebaseFirestore)
             }
     }
 
+    override fun getMedicineCollection(id: String,  result: (List<MedicineData>) -> Unit){
+
+            database.collection("patientdb").document(id).collection("medicine").get()
+                .addOnSuccessListener {
+                    val medList = arrayListOf<MedicineData>()
+                    for (document in it ) {
+                        val med = document.toObject(MedicineData::class.java)
+                        medList.add(med)
+
+                    }
+                    result.invoke(
+                        medList
+                    )
+                }
+                .addOnFailureListener {
+                    // return error
+                    //  error.invoke(
+                    //         it.localizedMessage
+                    //      )
+                    Log.e("firebase", "Failed firebase, medCollection")
+                }
+
+
+
+
+
+    }
+
     override fun getSelectedPatients(result: (List<PatientDataDB>) -> Unit) {
 
         database.collection("patientdb").whereEqualTo("selected", true).get().addOnSuccessListener {
@@ -47,10 +79,19 @@ class PatientRepositoryImpl @Inject constructor(val database: FirebaseFirestore)
                 val patient = document.toObject(PatientDataDB::class.java)
                 ptList.add(patient)
             }
+
+           ptList.forEach { list ->
+                getMedicineCollection(list.identifier.toString()){
+                    list.medicine = it
+                    Log.d("forEach medColl", it.toString())
+                }
+            }
+
             result.invoke(
                 ptList
             )
             Log.e("firebase", "Successful firebase")
+
 
         }
             .addOnFailureListener {

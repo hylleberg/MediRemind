@@ -58,8 +58,10 @@ import com.example.mediremind.ui.components.Navigation
 import com.example.mediremind.ui.screens.mypatients.MyPatientsScreen
 
 @Composable
-fun PatientListScreen(viewModel: PatientListViewModel = hiltViewModel(),
-                      onNavigateToMyPatientsScreen: () -> Unit) {
+fun PatientListScreen(
+    viewModel: PatientListViewModel = hiltViewModel(),
+    onNavigateToMyPatientsScreen: () -> Unit
+) {
     // Composable, der emitter til UI
     // Kalder til nogle View-model metoder, der hiver data fra en model
 
@@ -67,13 +69,13 @@ fun PatientListScreen(viewModel: PatientListViewModel = hiltViewModel(),
     val patientListState = viewModel.state.collectAsState().value
     val context = LocalContext.current
     val lifecycleEvent = rememberLifecycleEvent()
-   /* var isClicked by remember{ mutableStateOf(false)}
+    /* var isClicked by remember{ mutableStateOf(false)}
 
-    if(isClicked){
-        goToScreen(onNavigateToMyPatientsScreen)
-    }else{
-        Log.e("TIS", "not clicked")
-    }*/
+     if(isClicked){
+         goToScreen(onNavigateToMyPatientsScreen)
+     }else{
+         Log.e("TIS", "not clicked")
+     }*/
 
     LaunchedEffect(lifecycleEvent) {
         if (lifecycleEvent == Lifecycle.Event.ON_RESUME) {
@@ -98,22 +100,28 @@ fun PatientListScreen(viewModel: PatientListViewModel = hiltViewModel(),
                 style = MaterialTheme.typography.headlineMedium
             )
         }
-
+        Column(){
+            Text(
+                text = "Vælg patienter:",
+                style = MaterialTheme.typography.titleLarge
+            )
+        }
     }
+
     if (patientListState is PatientListState.Success) {
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
-            contentPadding = PaddingValues(16.dp)
+            contentPadding = PaddingValues(6.dp),
         ) {
             item {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
-                        .padding(vertical = 40.dp),
+                        .padding(vertical = 70.dp),
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.Top
-                ){}
+                ) {}
             }
             items(patientListState.patientList) { patient ->
                 PatientCard(patient) {
@@ -141,9 +149,9 @@ fun PatientListScreen(viewModel: PatientListViewModel = hiltViewModel(),
                         Log.e("asdgas", it)
                     }
                     viewModel.assignPatient(tempIdList)
-                   // isClicked = true;
+                    // isClicked = true;
                     onNavigateToMyPatientsScreen()
-                   // goToScreen(viewModel, onNavigateToMyPatientsScreen )
+                    // goToScreen(viewModel, onNavigateToMyPatientsScreen )
 
                     /* setAlarm(
                        name = "Hanna",

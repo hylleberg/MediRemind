@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -23,7 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.mediremind.data.model.PatientData
+
 import com.example.mediremind.data.model.PatientDataDB
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,16 +34,19 @@ fun PatientCard(patientModel: PatientDataDB, onItemClick: (Int) -> Unit) {
         if (!patientModel.selected) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.secondary
     val borderStroke = if (!patientModel.selected) null else BorderStroke(
         1.dp,
-        MaterialTheme.colorScheme.onSecondary
+        MaterialTheme.colorScheme.secondary
     )
+
+    val elevation = if (!patientModel.selected) 0.dp else 6.dp
 
     Card(
         modifier = Modifier
             .padding(10.dp)
             .fillMaxWidth()
             .wrapContentHeight(),
-        colors = CardDefaults.cardColors(containerColor = backgroundColor),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
         border = borderStroke,
+        elevation = CardDefaults.cardElevation(elevation),
         onClick = {
             onItemClick(patientModel.identifier)
         }
