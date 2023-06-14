@@ -1,5 +1,6 @@
 package com.example.mediremind.ui.screens.medicinelist
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -33,7 +34,7 @@ import com.example.mediremind.ui.components.MedicineCard
 
 @Composable
 
-fun MedicineListScreen (navController: NavController, viewModel: MedicineListViewModel = hiltViewModel()) {
+fun MedicineListScreen ( viewModel: MedicineListViewModel = hiltViewModel(), onNavigateToMyPatientsScreen: ()->Unit) {
     // Composable, der emitter til UI
     // Kalder til nogle View-model metoder, der hiver data fra en model
     val medicineListState = viewModel.state.collectAsState().value
@@ -53,9 +54,13 @@ fun MedicineListScreen (navController: NavController, viewModel: MedicineListVie
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Button( modifier= Modifier
-                    .weight(2f),
-                    onClick = { navController.navigate(NavigationItem.MyPatients.route) },
+                Button(
+                    modifier = Modifier
+                        .weight(2f),
+                    // onClick = { navController.navigate(NavigationItem.MyPatients.route) },
+                    onClick = { onNavigateToMyPatientsScreen() },
+                    //Log.d("NavStack", "${navController.currentBackStackEntry.toString()}" ?: "null")
+                    //navController.popBackStack()},
                     // Uses ButtonDefaults.ContentPadding by default
                     contentPadding = PaddingValues(
                         start = 20.dp,
@@ -74,19 +79,20 @@ fun MedicineListScreen (navController: NavController, viewModel: MedicineListVie
                     //Text("")
 
                 }
-                Text( modifier= Modifier
-                    .weight(7f)
-                    .padding(2.dp),
+                Text(
+                    modifier = Modifier
+                        .weight(7f)
+                        .padding(2.dp),
                     text = "Medicin",
                     style = MaterialTheme.typography.headlineMedium
                 )
             }
         }
-         items(medicineListState.mList) { medicine ->
+        items(medicineListState.mList) { medicine ->
             MedicineCard(medicine)
-              }
         }
     }
+}
 
     /* Box(modifier = Modifier.fillMaxSize()) {
          FloatingActionButton(

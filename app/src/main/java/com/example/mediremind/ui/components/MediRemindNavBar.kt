@@ -84,7 +84,8 @@ fun Navigation(navController: NavHostController) {
 
         }
         composable(NavigationItem.Medication.route) {
-            MedicineListScreen(navController=navController)
+            MedicineListScreen(onNavigateToMyPatientsScreen =
+            {navController.navigate(NavigationItem.MyPatients.route){navController.popBackStack()}})
         }
     }
 }
