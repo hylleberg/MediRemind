@@ -7,6 +7,8 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -76,15 +78,17 @@ fun Navigation(navController: NavHostController) {
             HomeScreen()
         }
         composable(NavigationItem.PatientList.route) {
-            PatientListScreen()
-        }
+                PatientListScreen(onNavigateToMyPatientsScreen =
+                {navController.navigate(NavigationItem.MyPatients.route){navController.popBackStack()}})
+            }
+
         composable(NavigationItem.MyPatients.route) {
             MyPatientsScreen()
         }
 
         composable(NavigationItem.Medication.route)
         {
-            //MedicationScreen()
+
         }
     }
 }

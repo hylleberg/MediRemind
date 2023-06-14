@@ -84,6 +84,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'
 
+    implementation "androidx.compose.runtime:runtime:1.4.3"
+    implementation "androidx.compose.runtime:runtime-livedata:1.4.3"
+
+
+
 }
 
 kapt {
