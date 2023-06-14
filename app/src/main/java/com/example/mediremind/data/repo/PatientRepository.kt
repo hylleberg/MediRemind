@@ -5,5 +5,10 @@ import com.example.mediremind.data.model.PatientDataDB
 import com.example.mediremind.ui.screens.patientlist.model.PatientListState
 
 interface PatientRepository {
-    fun getPatients(result: (List<PatientDataDB>) -> Unit)
+    fun getUnselectedPatients(result: (List<PatientDataDB>) -> Unit)
+
+    fun getSelectedPatients(result: (List<PatientDataDB>) -> Unit)
+
+    fun setSelectedPatient(idList: List<String>)
+    fun unsetSelectedPatient(idList: List<String>)
 }
