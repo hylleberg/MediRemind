@@ -45,7 +45,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import com.example.mediremind.alarm.setAlarm
+
 import com.example.mediremind.ui.components.PatientCard
 import com.example.mediremind.ui.screens.patientlist.model.PatientListState
 import java.time.LocalDateTime
@@ -53,6 +53,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.setValue
 import androidx.navigation.NavController
+import com.example.mediremind.alarm.setAlarm
 import com.example.mediremind.data.model.NavigationItem
 import com.example.mediremind.ui.components.Navigation
 import com.example.mediremind.ui.screens.mypatients.MyPatientsScreen
@@ -100,7 +101,7 @@ fun PatientListScreen(
                 style = MaterialTheme.typography.headlineMedium
             )
         }
-        Column(){
+        Column() {
             Text(
                 text = "Vælg patienter:",
                 style = MaterialTheme.typography.titleLarge
@@ -136,19 +137,34 @@ fun PatientListScreen(
                     .align(alignment = Alignment.BottomEnd)
                     .offset(x = -10.dp, y = -70.dp),
                 onClick = {
-
+                    var sec: Long = 5
                     val tempIdList = arrayListOf<String>()
                     patientListState.patientList.map {
                         if (it.selected) {
+                            it.medicine.forEach { medlist ->
+                                setAlarm(
+                                    it.name,
+                                    medlist.medname,
+                                    LocalDateTime.now().plusSeconds(sec),
+                                    context
+                                )
+                                sec += 5
+                                Log.d(
+                                    "alarmset patientlistscr",
+                                    "Set alarm for " + it.name + " for medication " + medlist.medname + " at " + medlist.alarmtime.toString()
+                                )
+
+                            }
                             tempIdList.add(it.identifier.toString())
+
                         } else {
                             Log.e("Assigned lookup", "Couldn't map, not selected")
                         }
                     }
-                    tempIdList.forEach {
-                        Log.e("asdgas", it)
-                    }
+
                     viewModel.assignPatient(tempIdList)
+
+
                     // isClicked = true;
                     onNavigateToMyPatientsScreen()
                     // goToScreen(viewModel, onNavigateToMyPatientsScreen )

@@ -52,6 +52,7 @@ class PatientListViewModel @Inject constructor(val repository: PatientRepository
         }
     }
 
+
     fun assignPatient(idList: List<String>){
         repository.setSelectedPatient(idList)
         fetchPatients()

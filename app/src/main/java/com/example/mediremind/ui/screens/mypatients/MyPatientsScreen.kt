@@ -43,7 +43,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import com.example.mediremind.alarm.setAlarm
+
 import com.example.mediremind.data.mockdata.testDataList
 import com.example.mediremind.ui.components.MyPatientsCard
 import com.example.mediremind.ui.components.PatientCard
@@ -138,6 +138,7 @@ fun MyPatientsScreen(
 
                     }
                     viewModel.unassignPatient(tempIdList)
+
 
                     /* setAlarm(
                          name = "Hanna",

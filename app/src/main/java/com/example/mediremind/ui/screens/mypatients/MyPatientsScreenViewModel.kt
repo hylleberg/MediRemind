@@ -38,6 +38,8 @@ class MyPatientsScreenViewModel @Inject constructor(val repository: PatientRepos
         repository.unsetSelectedPatient(idList)
         fetchAssignedPatients()
     }
+
+
     fun onCardClick(identifier: Int) {
 
         _state.update { currentState ->

@@ -1,5 +1,6 @@
 package com.example.mediremind.ui.components
 
+import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -32,8 +33,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.wear.compose.material3.ContentAlpha
 import com.example.mediremind.data.model.MedicineData
+import java.time.Instant
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.TimeZone
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,12 +47,9 @@ fun MedicineCard(medicineModel: MedicineData) {
         targetValue = if (expandedState) 180f else 0f
     )
 
-    // val localDateTimeConv: String = medicineModel.medtime.toString()
-    // val formatter = DateTimeFormatter.ofPattern("hh:mm a")
-    // val conv: LocalDateTime = LocalDateTime.parse(localDateTimeConv, formatter)
+    val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+    val convTime: String = dateTimeFormatter.format(medicineModel.alarmtime)
 
-    //  val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
-    //  val formattedDate: String = dateTimeFormatter.format(medicineModel.medtime.toString())
     val backgroundColor = MaterialTheme.colorScheme.secondaryContainer
 
     Card(
@@ -102,8 +103,8 @@ fun MedicineCard(medicineModel: MedicineData) {
                         modifier = Modifier
                             // .padding(20.dp)
                             .weight(2f),
-                        text = "asdghasd",
-                        //                      text = conv.toString(),
+
+                        text = convTime.toString(),
                         style = MaterialTheme.typography.titleMedium,
                         // fontWeight = FontWeight.Bold,
                         // Begrænser teksten til max én linje

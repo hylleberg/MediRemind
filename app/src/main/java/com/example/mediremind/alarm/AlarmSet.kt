@@ -8,11 +8,10 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 
-fun setAlarm(name: String, medication: String, time: LocalDateTime, context: Context){
+fun setAlarm( name: String, medication: String, time: LocalDateTime, context: Context){
 
     val alarmScheduler: AlarmScheduler = AlarmSchedulerImpl(context)
-    var alarmItem: AlarmItem? = null
-
+    var alarmItem : AlarmItem
     val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
     val formattedDate: String = dateTimeFormatter.format(LocalDateTime.now())
     Log.e("asdf", formattedDate)

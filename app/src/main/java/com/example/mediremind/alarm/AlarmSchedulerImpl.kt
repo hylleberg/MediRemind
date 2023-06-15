@@ -31,7 +31,14 @@ class AlarmSchedulerImpl(private val context: Context): AlarmScheduler {
         Log.e("Alarm", "Alarm set at $alarmTime")
     }
 
-    override fun snooze(alarmItem: AlarmItem) {
-        TODO("Not yet implemented")
+    override fun cancel(alarmItem: AlarmItem) {
+        alarmManager.cancel(
+            PendingIntent.getBroadcast(
+                context,
+                alarmItem.hashCode(),
+                Intent(context, AlarmReceiver::class.java),
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+        )
     }
 }

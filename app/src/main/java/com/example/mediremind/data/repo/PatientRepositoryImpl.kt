@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.mediremind.data.model.MedicineData
 
 import com.example.mediremind.data.model.PatientDataDB
+import com.example.mediremind.util.timestampToLocalDateTime
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
 
@@ -18,18 +19,18 @@ class PatientRepositoryImpl @Inject constructor(val database: FirebaseFirestore)
                 for (document in it) {
                     val patient = document.toObject(PatientDataDB::class.java)
                     ptList.add(patient)
-
-
+                }
+                ptList.forEach { list ->
+                    getMedicineCollection(list.identifier.toString()) {
+                        list.medicine = it
+                        Log.d("forEach medColl", it.toString())
+                    }
                 }
 
-                // return List<PatientDataDB>, success case
                 result.invoke(
                     ptList
                 )
                 Log.e("firebase", "Successful firebase")
-                //   Log.e("firebase-data", ptList[0].name)
-                //   Log.e("firebase-data", ptList[1].name)
-                //    Log.e("firebase-data", ptList[2].name)
             }
             .addOnFailureListener {
                 // return error
@@ -40,29 +41,29 @@ class PatientRepositoryImpl @Inject constructor(val database: FirebaseFirestore)
             }
     }
 
-    override fun getMedicineCollection(id: String,  result: (List<MedicineData>) -> Unit){
+    override fun getMedicineCollection(id: String, result: (List<MedicineData>) -> Unit) {
 
-            database.collection("patientdb").document(id).collection("medicine").get()
-                .addOnSuccessListener {
-                    val medList = arrayListOf<MedicineData>()
-                    for (document in it ) {
-                        val med = document.toObject(MedicineData::class.java)
-                        medList.add(med)
-                    }
-                    result.invoke(
-                        medList
-                    )
+        database.collection("patientdb").document(id).collection("medicine").get()
+            .addOnSuccessListener {
+                val medList = arrayListOf<MedicineData>()
+                for (document in it) {
+                    val med = document.toObject(MedicineData::class.java)
+                    medList.add(med)
                 }
-                .addOnFailureListener {
-                    // return error
-                    //  error.invoke(
-                    //         it.localizedMessage
-                    //      )
-                    Log.e("firebase", "Failed firebase, medCollection")
+                medList.forEach { time ->
+                    time.alarmtime = timestampToLocalDateTime(time.medtime)
                 }
-
-
-
+                result.invoke(
+                    medList
+                )
+            }
+            .addOnFailureListener {
+                // return error
+                //  error.invoke(
+                //         it.localizedMessage
+                //      )
+                Log.e("firebase", "Failed firebase, medCollection")
+            }
 
 
     }
@@ -76,8 +77,8 @@ class PatientRepositoryImpl @Inject constructor(val database: FirebaseFirestore)
                 ptList.add(patient)
             }
 
-           ptList.forEach { list ->
-                getMedicineCollection(list.identifier.toString()){
+            ptList.forEach { list ->
+                getMedicineCollection(list.identifier.toString()) {
                     list.medicine = it
                     Log.d("forEach medColl", it.toString())
                 }
