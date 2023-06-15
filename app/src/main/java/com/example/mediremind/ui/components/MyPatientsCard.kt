@@ -1,5 +1,6 @@
 package com.example.mediremind.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -26,9 +28,15 @@ import com.example.mediremind.data.model.PatientDataDB
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MyPatientsCard(patientModel: PatientDataDB, onItemClick: (Int) -> Unit) {
-    val backgroundColor = if(patientModel.selected) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.secondary
-    val borderStroke = if(patientModel.selected) null else BorderStroke(1.dp, Color.Black)
+fun MyPatientsCard(
+    patientModel: PatientDataDB,
+    onItemClick: (Int) -> Unit,
+    onNavigateToMedicineScreen: () -> Unit,
+    selectedId: (String) -> Unit
+) {
+    val backgroundColor =
+        if (patientModel.selected) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.secondary
+    val borderStroke = if (patientModel.selected) null else BorderStroke(1.dp, Color.Black)
 
 
     Card(
@@ -41,37 +49,45 @@ fun MyPatientsCard(patientModel: PatientDataDB, onItemClick: (Int) -> Unit) {
         onClick = {
             onItemClick(patientModel.identifier)
         }
-    ){
-    Row(
-        verticalAlignment = Alignment.Top,
-        modifier = Modifier
-            .padding(20.dp),
-    )
-    {
-        Column(modifier = Modifier.fillMaxWidth(0.9f)) {
-            Text(
-                text = patientModel.name,
-                style = MaterialTheme.typography.titleMedium,
-
-                )
-            Text(
-                text = patientModel.cpr,
-                style = MaterialTheme.typography.titleSmall,
-            )
-
-
-        }
+    ) {
         Row(
-            horizontalArrangement = Arrangement.End,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Icon(imageVector = Icons.Filled.Close, contentDescription = "delete")
+            verticalAlignment = Alignment.Top,
+            modifier = Modifier
+                .padding(20.dp),
+        )
+        {
+            Column(modifier = Modifier.fillMaxWidth(0.9f)) {
+                Text(
+                    text = patientModel.name,
+                    style = MaterialTheme.typography.titleMedium,
+
+                    )
+                Text(
+                    text = patientModel.cpr,
+                    style = MaterialTheme.typography.titleSmall,
+                )
+                Button(onClick = {
+                    onNavigateToMedicineScreen()
+                  //  Log.d("Identifier", patientModel.identifier.toString())
+                    selectedId(patientModel.identifier.toString())
+                }) {
+                    Text(text = "KNAP")
+
+
+                }
+
+            }
+            Row(
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(imageVector = Icons.Filled.Close, contentDescription = "delete")
+
+            }
+
 
         }
-
 
     }
-
-}
 
 }

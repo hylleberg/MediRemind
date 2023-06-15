@@ -1,13 +1,10 @@
 package com.example.mediremind.data.repo
 
 import android.util.Log
-import com.example.mediremind.data.mockdata.MedicineData
+import com.example.mediremind.data.model.MedicineData
 
 import com.example.mediremind.data.model.PatientDataDB
-import com.example.mediremind.ui.screens.patientlist.model.PatientListState
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import javax.inject.Inject
 
 class PatientRepositoryImpl @Inject constructor(val database: FirebaseFirestore) :
@@ -51,7 +48,6 @@ class PatientRepositoryImpl @Inject constructor(val database: FirebaseFirestore)
                     for (document in it ) {
                         val med = document.toObject(MedicineData::class.java)
                         medList.add(med)
-
                     }
                     result.invoke(
                         medList

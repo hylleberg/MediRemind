@@ -72,6 +72,9 @@ fun MediRemindNavBar(navController: NavController) {
 @Composable
 fun Navigation(navController: NavHostController) {
     NavHost(navController, startDestination = NavigationItem.Home.route) {
+        var id: String = "0"
+
+
         composable(NavigationItem.Home.route) {
             HomeScreen()
         }
@@ -81,12 +84,12 @@ fun Navigation(navController: NavHostController) {
             }
 
         composable(NavigationItem.MyPatients.route) {
-            MyPatientsScreen(onNavigateToMedicineScreen = {navController.navigate(NavigationItem.Medication.route){navController.popBackStack()}})
+            MyPatientsScreen(onNavigateToMedicineScreen = {navController.navigate(NavigationItem.Medication.route){navController.popBackStack()}}, selectedId = { selId -> id = selId })
 
         }
         composable(NavigationItem.Medication.route) {
             MedicineListScreen(onNavigateToMyPatientsScreen =
-            {navController.navigate(NavigationItem.MyPatients.route){navController.popBackStack()}})
+            {navController.navigate(NavigationItem.MyPatients.route){navController.popBackStack()}}, id = id)
         }
 
     }

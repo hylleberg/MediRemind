@@ -19,7 +19,7 @@ class AlarmReceiver : BroadcastReceiver() {
             val notificationManager =
                 ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val builder = NotificationCompat.Builder(ctx, channelId)
-                .setSmallIcon(R.drawable.kitty)
+                .setSmallIcon(R.drawable.medicine)
                 .setContentTitle("MediRemind")
                 .setContentText("$message")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)

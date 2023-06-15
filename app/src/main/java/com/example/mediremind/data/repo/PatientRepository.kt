@@ -1,9 +1,8 @@
 package com.example.mediremind.data.repo
 
 
-import com.example.mediremind.data.mockdata.MedicineData
+import com.example.mediremind.data.model.MedicineData
 import com.example.mediremind.data.model.PatientDataDB
-import com.example.mediremind.ui.screens.patientlist.model.PatientListState
 
 interface PatientRepository {
     fun getUnselectedPatients(result: (List<PatientDataDB>) -> Unit)

@@ -1,7 +1,12 @@
 package com.example.mediremind.ui.screens.medicinelist.model
 
-import com.example.mediremind.data.mockdata.MedicineData
-import com.example.mediremind.data.mockdata.medicineTestDataList
+import com.example.mediremind.data.model.MedicineData
 
 
-data class MedicineListState(val mList: List<MedicineData> = medicineTestDataList)
+sealed interface MedicineListState {
+
+    object Loading : MedicineListState
+    data class Failure(val error: Throwable) : MedicineListState
+    data class Success(val medicineList: List<MedicineData>) : MedicineListState
+
+}

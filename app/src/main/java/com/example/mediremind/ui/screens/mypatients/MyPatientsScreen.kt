@@ -54,7 +54,12 @@ import com.example.mediremind.ui.screens.patientlist.model.PatientListState
 import java.time.LocalDateTime
 
 @Composable
-fun MyPatientsScreen(viewModel: MyPatientsScreenViewModel = hiltViewModel(), onNavigateToMedicineScreen: () -> Unit) {
+fun MyPatientsScreen(
+    viewModel: MyPatientsScreenViewModel = hiltViewModel(),
+    onNavigateToMedicineScreen: () -> Unit,
+    selectedId: (String) -> Unit
+
+) {
 
 
     val myPatientScreenState = viewModel.state.collectAsState().value
@@ -100,20 +105,16 @@ fun MyPatientsScreen(viewModel: MyPatientsScreenViewModel = hiltViewModel(), onN
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.Top
                 ) {}
-                Button(onClick = {
 
-                    onNavigateToMedicineScreen()
-
-                }){
-                    Text(text = "KNAP")
-
-
-                }
             }
             items(myPatientScreenState.patientList) { patient ->
-                MyPatientsCard(patient) {
-                    viewModel.onCardClick(it)
-                }
+                MyPatientsCard(
+                    patient, {
+                        viewModel.onCardClick(it)
+                    },
+                    onNavigateToMedicineScreen,
+                    selectedId
+                )
             }
         }
         Box(modifier = Modifier.fillMaxSize()) {

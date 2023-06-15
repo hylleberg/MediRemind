@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Card
@@ -31,25 +30,25 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.wear.compose.material3.ContentAlpha
-import com.example.mediremind.data.mockdata.MedicineData
+import com.example.mediremind.data.model.MedicineData
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MedicineCard(medicineModel: MedicineData) {
-    var expandedState by remember {mutableStateOf(false) }
+    var expandedState by remember { mutableStateOf(false) }
     val rotationState by animateFloatAsState(
-        targetValue = if(expandedState) 180f else 0f)
+        targetValue = if (expandedState) 180f else 0f
+    )
 
-  //  val localDateTimeConv: String = medicineModel.medtime.toString()
-  //  val formatter = DateTimeFormatter.ofPattern("hh:mm a")
-  //  val conv: LocalDateTime = LocalDateTime.parse(localDateTimeConv, formatter)
+    // val localDateTimeConv: String = medicineModel.medtime.toString()
+    // val formatter = DateTimeFormatter.ofPattern("hh:mm a")
+    // val conv: LocalDateTime = LocalDateTime.parse(localDateTimeConv, formatter)
 
-   //  val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
-   //  val formattedDate: String = dateTimeFormatter.format(medicineModel.medtime.toString())
+    //  val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+    //  val formattedDate: String = dateTimeFormatter.format(medicineModel.medtime.toString())
     val backgroundColor = MaterialTheme.colorScheme.secondaryContainer
 
     Card(
@@ -63,70 +62,66 @@ fun MedicineCard(medicineModel: MedicineData) {
                     easing = LinearOutSlowInEasing
                 )
             ),
-                // shape = RoundedCornerShape(0.dp),
+        // shape = RoundedCornerShape(0.dp),
         colors = CardDefaults.cardColors(containerColor = backgroundColor),
 
-                onClick = {
-                    expandedState = !expandedState
-                }
+        onClick = {
+            expandedState = !expandedState
+        }
 
 
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                // .padding(12.dp)
+            // .padding(12.dp)
 
-        ){
-            Box (
+        ) {
+            Box(
                 modifier = Modifier
-                .padding(horizontal = 12.dp, vertical = 1.dp)
+                    .padding(horizontal = 12.dp, vertical = 1.dp)
             ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    modifier = Modifier
-                        // .padding(1.dp)
-                        .weight(2f),
-                    text = medicineModel.medname,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    // Begrænser teksten til max én linje
-                    // maxLines = 1,
-                    // Hvis man skriver mere end én linje, laver den "..."
-                    overflow = TextOverflow.Ellipsis
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        modifier = Modifier
+                            // .padding(1.dp)
+                            .weight(2f),
+                        text = medicineModel.medname,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        // Begrænser teksten til max én linje
+                        // maxLines = 1,
+                        // Hvis man skriver mere end én linje, laver den "..."
+                        overflow = TextOverflow.Ellipsis
 
-                )
+                    )
 
-                Text(
-                    modifier = Modifier
-                        // .padding(20.dp)
-                        .weight(2f),
-                    text = "asdgasd",
-//                text = conv.toString(),
-                    style = MaterialTheme.typography.titleMedium,
-                    // fontWeight = FontWeight.Bold,
-                    // Begrænser teksten til max én linje
-                    // maxLines = 1,
-                    // Hvis man skriver mere end én linje, laver den "..."
-                    overflow = TextOverflow.Ellipsis
+                    Text(
+                        modifier = Modifier
+                            // .padding(20.dp)
+                            .weight(2f),
+                        text = "asdghasd",
+                        //                      text = conv.toString(),
+                        style = MaterialTheme.typography.titleMedium,
+                        // fontWeight = FontWeight.Bold,
+                        // Begrænser teksten til max én linje
+                        // maxLines = 1,
+                        // Hvis man skriver mere end én linje, laver den "..."
+                        overflow = TextOverflow.Ellipsis
 
-                )
+                    )
 
+
+                }
 
 
             }
-
-
-
-            }
-
-
 
 
         }
-        Box (
+        Box(
             modifier = Modifier
                 .padding(horizontal = 12.dp, vertical = 1.dp)
         ) {
@@ -136,7 +131,7 @@ fun MedicineCard(medicineModel: MedicineData) {
                 Text(
                     modifier = Modifier
                         // .padding(1.dp)
-                    .weight(6f),
+                        .weight(6f),
                     text = medicineModel.meddose,
                     style = MaterialTheme.typography.titleMedium,
                     // fontWeight = FontWeight.Bold,
@@ -161,9 +156,10 @@ fun MedicineCard(medicineModel: MedicineData) {
                 }
             }
         }
-        if(expandedState){
-            Text(modifier = Modifier
-                .padding(horizontal = 12.dp, vertical = 2.dp),
+        if (expandedState) {
+            Text(
+                modifier = Modifier
+                    .padding(horizontal = 12.dp, vertical = 2.dp),
                 text = "Administrationsvej: " + medicineModel.medadm,
                 fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                 fontWeight = FontWeight.Normal,
