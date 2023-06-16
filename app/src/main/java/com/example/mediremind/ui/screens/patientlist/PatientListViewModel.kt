@@ -3,7 +3,9 @@ package com.example.mediremind.ui.screens.patientlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mediremind.data.model.PatientDataDB
 import com.example.mediremind.data.repo.PatientRepository
+import com.example.mediremind.ui.screens.mypatients.model.MyPatientsScreenState
 import com.example.mediremind.ui.screens.patientlist.model.PatientListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -25,12 +27,14 @@ class PatientListViewModel @Inject constructor(val repository: PatientRepository
 
     fun fetchPatients() {
         viewModelScope.launch {
+            var tempList: List<PatientDataDB> = listOf()
             _state.value = PatientListState.Loading
             delay(200)
-
-            repository.getUnselectedPatients() {
-                _state.value = PatientListState.Success(it)
+            tempList = repository.getUnselectedPatients()
+            tempList.forEach { element ->
+                element.medicine = repository.getMedicineCollection(element.identifier.toString())
             }
+            _state.value = PatientListState.Success(tempList)
         }
     }
 

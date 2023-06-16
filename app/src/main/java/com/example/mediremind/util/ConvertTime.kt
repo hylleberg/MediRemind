@@ -16,3 +16,16 @@ fun timestampToLocalDateTime(timestamp: Timestamp): LocalDateTime {
     return LocalDateTime.ofInstant(Instant.ofEpochMilli(tempTimestamp), ZoneId.systemDefault())
 
 }
+
+fun minutesToHourAndMinutes(duration: Long): String{
+    val hours: Int = duration.toInt() / 60
+    val minutes: Int = duration.toInt() % 60
+
+    if(hours==0){
+        return "$minutes mins "
+    }else if(minutes==0){
+        return "$hours timer"
+    }else{
+        return "$hours timer, $minutes mins "
+    }
+}

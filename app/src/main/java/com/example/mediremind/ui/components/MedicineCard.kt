@@ -72,16 +72,20 @@ fun MedicineCard(medicineModel: MedicineData) {
 
 
     ) {
+        Row(
+            verticalAlignment = Alignment.Top,
+            modifier = Modifier
+                .padding(20.dp),
+        ){
+
+
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(0.7f)
             // .padding(12.dp)
 
         ) {
-            Box(
-                modifier = Modifier
-                    .padding(horizontal = 12.dp, vertical = 1.dp)
-            ) {
+
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
@@ -90,7 +94,7 @@ fun MedicineCard(medicineModel: MedicineData) {
                             // .padding(1.dp)
                             .weight(2f),
                         text = medicineModel.medname,
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.Bold,
                         // Begrænser teksten til max én linje
                         // maxLines = 1,
@@ -99,32 +103,31 @@ fun MedicineCard(medicineModel: MedicineData) {
 
                     )
 
-                    Text(
-                        modifier = Modifier
-                            // .padding(20.dp)
-                            .weight(2f),
 
-                        text = convTime.toString(),
-                        style = MaterialTheme.typography.titleMedium,
-                        // fontWeight = FontWeight.Bold,
-                        // Begrænser teksten til max én linje
-                        // maxLines = 1,
-                        // Hvis man skriver mere end én linje, laver den "..."
-                        overflow = TextOverflow.Ellipsis
-
-                    )
 
 
                 }
 
 
-            }
+
 
 
         }
+        Column(horizontalAlignment = Alignment.End){
+            Text(text = convTime.toString(),
+                style = MaterialTheme.typography.titleMedium,
+                // fontWeight = FontWeight.Bold,
+                // Begrænser teksten til max én linje
+                // maxLines = 1,
+                // Hvis man skriver mere end én linje, laver den "..."
+                overflow = TextOverflow.Ellipsis
+
+            )
+        }
+        }
         Box(
             modifier = Modifier
-                .padding(horizontal = 12.dp, vertical = 1.dp)
+                .padding(20.dp),
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,

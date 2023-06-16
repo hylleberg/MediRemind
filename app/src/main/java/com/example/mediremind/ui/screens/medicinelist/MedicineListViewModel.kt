@@ -15,24 +15,24 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MedicineListViewModel  @Inject constructor(val repository: PatientRepository) : ViewModel() {
+class MedicineListViewModel @Inject constructor(val repository: PatientRepository) : ViewModel() {
 
     private val _state = MutableStateFlow<MedicineListState>(MedicineListState.Loading)
     val state = _state.asStateFlow()
 
 
-    fun fetchMedicine(id: String){
+    fun fetchMedicine(id: String) {
         viewModelScope.launch {
             _state.value = MedicineListState.Loading
             delay(200)
-            repository.getMedicineCollection(id) {
-                _state.value = MedicineListState.Success(it)
-            }
+
+                _state.value = MedicineListState.Success(repository.getMedicineCollection(id))
+
         }
 
 
-    }
-    /* fun onCardClick(identifier: Int){
+        }
+        /* fun onCardClick(identifier: Int){
 
         _state.update{ currentState ->
             val tempList = currentState.mList.map {
@@ -50,4 +50,5 @@ class MedicineListViewModel  @Inject constructor(val repository: PatientReposito
     }
 */
 
-}
+    }
+

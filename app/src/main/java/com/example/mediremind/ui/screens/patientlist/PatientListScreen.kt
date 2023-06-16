@@ -124,6 +124,7 @@ fun PatientListScreen(
                     verticalAlignment = Alignment.Top
                 ) {}
             }
+            Log.d("lazycol patlist", patientListState.patientList[0].toString())
             items(patientListState.patientList) { patient ->
                 PatientCard(patient) {
                     viewModel.onCardClick(it)
@@ -136,6 +137,7 @@ fun PatientListScreen(
                     .padding(all = 16.dp)
                     .align(alignment = Alignment.BottomEnd)
                     .offset(x = -10.dp, y = -70.dp),
+                containerColor = Color.Green,
                 onClick = {
                     var sec: Long = 5
                     val tempIdList = arrayListOf<String>()
@@ -145,7 +147,7 @@ fun PatientListScreen(
                                 setAlarm(
                                     it.name,
                                     medlist.medname,
-                                    LocalDateTime.now().plusSeconds(sec),
+                                    medlist.alarmtime,
                                     context
                                 )
                                 sec += 5

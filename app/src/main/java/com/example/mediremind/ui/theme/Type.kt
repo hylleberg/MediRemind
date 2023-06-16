@@ -22,7 +22,7 @@ val mediremindTypography = Typography(
         ),
         headlineSmall = TextStyle(
                 fontWeight = FontWeight.SemiBold,
-                fontSize = 24.sp,
+                fontSize = 20.sp,
                 lineHeight = 32.sp,
                 letterSpacing = 0.sp
         ),
@@ -35,7 +35,7 @@ val mediremindTypography = Typography(
         titleMedium = TextStyle(
                 fontWeight = FontWeight.SemiBold,
                 fontSize = 16.sp,
-                lineHeight = 24.sp,
+                lineHeight = 32.sp,
                 letterSpacing = 0.15.sp
         ),
         titleSmall = TextStyle(

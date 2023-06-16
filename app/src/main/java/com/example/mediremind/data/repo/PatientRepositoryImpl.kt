@@ -5,100 +5,55 @@ import com.example.mediremind.data.model.MedicineData
 
 import com.example.mediremind.data.model.PatientDataDB
 import com.example.mediremind.util.timestampToLocalDateTime
+import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class PatientRepositoryImpl @Inject constructor(val database: FirebaseFirestore) :
     PatientRepository {
 
-    override fun getUnselectedPatients(result: (List<PatientDataDB>) -> Unit) {
-
-        database.collection("patientdb").whereEqualTo("selected", false).get()
-            .addOnSuccessListener {
-                val ptList = arrayListOf<PatientDataDB>()
-                for (document in it) {
-                    val patient = document.toObject(PatientDataDB::class.java)
-                    ptList.add(patient)
-                }
-                ptList.forEach { list ->
-                    getMedicineCollection(list.identifier.toString()) {
-                        list.medicine = it
-                        Log.d("forEach medColl", it.toString())
-                    }
-                }
-
-                result.invoke(
-                    ptList
-                )
-                Log.e("firebase", "Successful firebase")
-            }
-            .addOnFailureListener {
-                // return error
-                //  error.invoke(
-                //         it.localizedMessage
-                //      )
-                Log.e("firebase", "Failed firebase")
-            }
-    }
-
-    override fun getMedicineCollection(id: String, result: (List<MedicineData>) -> Unit) {
-
-        database.collection("patientdb").document(id).collection("medicine").get()
-            .addOnSuccessListener {
-                val medList = arrayListOf<MedicineData>()
-                for (document in it) {
-                    val med = document.toObject(MedicineData::class.java)
-                    medList.add(med)
-                }
-                medList.forEach { time ->
-                    time.alarmtime = timestampToLocalDateTime(time.medtime)
-                }
-                result.invoke(
-                    medList
-                )
-            }
-            .addOnFailureListener {
-                // return error
-                //  error.invoke(
-                //         it.localizedMessage
-                //      )
-                Log.e("firebase", "Failed firebase, medCollection")
-            }
-
-
-    }
-
-    override fun getSelectedPatients(result: (List<PatientDataDB>) -> Unit) {
-
-        database.collection("patientdb").whereEqualTo("selected", true).get().addOnSuccessListener {
-            val ptList = arrayListOf<PatientDataDB>()
-            for (document in it) {
+    override suspend fun getUnselectedPatients(): List<PatientDataDB> {
+        val ptList = arrayListOf<PatientDataDB>()
+        database.collection("patientdb").whereEqualTo("selected", false).get().await()
+            .map { document ->
                 val patient = document.toObject(PatientDataDB::class.java)
                 ptList.add(patient)
             }
-
-            ptList.forEach { list ->
-                getMedicineCollection(list.identifier.toString()) {
-                    list.medicine = it
-                    Log.d("forEach medColl", it.toString())
-                }
-            }
-
-            result.invoke(
-                ptList
-            )
-            Log.e("firebase", "Successful firebase")
-
-
-        }
-            .addOnFailureListener {
-                // return error
-                //  error.invoke(
-                //         it.localizedMessage
-                //      )
-                Log.e("firebase", "Failed firebase")
-            }
+        return ptList
+        Log.e("firebase", "Successful firebase")
     }
+
+    override suspend fun getMedicineCollection(id: String): List<MedicineData> {
+        val medList = arrayListOf<MedicineData>()
+        database.collection("patientdb").document(id).collection("medicine").get().await()
+            .map() { document ->
+                val med = document.toObject(MedicineData::class.java)
+                medList.add(med)
+            }
+        medList.forEach { time ->
+            time.alarmtime = timestampToLocalDateTime(time.medtime)
+            Log.d("medlist alarm put", "did it")
+        }
+        return medList
+    }
+
+
+    override suspend fun getSelectedPatients(): List<PatientDataDB> {
+        val ptList = arrayListOf<PatientDataDB>()
+        database.collection("patientdb").whereEqualTo("selected", true).get().await()
+            .map { document ->
+                val patient = document.toObject(PatientDataDB::class.java)
+                ptList.add(patient)
+            }
+        return ptList
+
+        Log.e("firebase", "Successful firebase")
+
+
+    }
+
 
     override fun setSelectedPatient(idList: List<String>) {
         idList.forEach {

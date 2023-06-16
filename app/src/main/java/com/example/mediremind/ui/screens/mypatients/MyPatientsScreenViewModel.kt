@@ -1,7 +1,9 @@
 package com.example.mediremind.ui.screens.mypatients
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mediremind.data.model.PatientDataDB
 import com.example.mediremind.data.repo.PatientRepository
 import com.example.mediremind.ui.screens.mypatients.model.MyPatientsScreenState
 import com.example.mediremind.ui.screens.patientlist.DefaultLifecycleObserver
@@ -15,7 +17,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MyPatientsScreenViewModel @Inject constructor(val repository: PatientRepository) : ViewModel(),
+class MyPatientsScreenViewModel @Inject constructor(val repository: PatientRepository) :
+    ViewModel(),
     DefaultLifecycleObserver {
     //gammel:
     // private val _state = MutableStateFlow<PatientListState>(PatientListState())
@@ -26,11 +29,14 @@ class MyPatientsScreenViewModel @Inject constructor(val repository: PatientRepos
 
     fun fetchAssignedPatients() {
         viewModelScope.launch {
+            var tempList: List<PatientDataDB> = listOf()
             _state.value = MyPatientsScreenState.Loading
             delay(200)
-            repository.getSelectedPatients() {
-                _state.value = MyPatientsScreenState.Success(it)
+            tempList = repository.getSelectedPatients()
+            tempList.forEach { element ->
+                element.medicine = repository.getMedicineCollection(element.identifier.toString())
             }
+            _state.value = MyPatientsScreenState.Success(tempList)
         }
     }
 
@@ -58,4 +64,4 @@ class MyPatientsScreenViewModel @Inject constructor(val repository: PatientRepos
         }
     }
 
-    }
+}

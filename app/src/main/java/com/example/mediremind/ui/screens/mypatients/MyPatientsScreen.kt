@@ -50,6 +50,7 @@ import com.example.mediremind.ui.components.PatientCard
 import com.example.mediremind.ui.screens.mypatients.model.MyPatientsScreenState
 import com.example.mediremind.ui.screens.patientlist.PatientListViewModel
 import com.example.mediremind.ui.screens.patientlist.model.PatientListState
+import kotlinx.coroutines.delay
 
 import java.time.LocalDateTime
 
@@ -86,15 +87,17 @@ fun MyPatientsScreen(
         ) {
             Text(
                 text = "Mine patienter",
-                style = MaterialTheme.typography.headlineMedium
+                style = MaterialTheme.typography.headlineMedium,
+
             )
         }
 
     }
     if (myPatientScreenState is MyPatientsScreenState.Success) {
+
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
-            contentPadding = PaddingValues(16.dp)
+            contentPadding = PaddingValues(6.dp)
         ) {
             item {
                 Row(

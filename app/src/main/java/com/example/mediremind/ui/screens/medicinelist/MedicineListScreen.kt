@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material3.Button
@@ -64,42 +65,37 @@ fun MedicineListScreen(
     if (medicineListState is MedicineListState.Success) {
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
-            contentPadding = PaddingValues(16.dp)
+            contentPadding = PaddingValues(6.dp)
         ) {
             item {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
-                        .padding(vertical = 25.dp),
+                        .padding(vertical = 40.dp),
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Button(
                         modifier = Modifier
-                            .weight(2f),
-                        // onClick = { navController.navigate(NavigationItem.MyPatients.route) },
+                            .size(40.dp),
+                        shape = CircleShape,
                         onClick = { onNavigateToMyPatientsScreen() },
-                        //Log.d("NavStack", "${navController.currentBackStackEntry.toString()}" ?: "null")
-                        //navController.popBackStack()},
-                        // Uses ButtonDefaults.ContentPadding by default
-                        contentPadding = PaddingValues(
-                            start = 20.dp,
-                            top = 12.dp,
-                            end = 20.dp,
-                            bottom = 12.dp
-                        )
+
+                        contentPadding = PaddingValues(0.dp),
+
                     ) {
-                        // Inner content including an icon and a text label
+
                         Icon(
                             Icons.Filled.KeyboardArrowLeft,
                             contentDescription = "TilbagePatient",
-                            modifier = Modifier.size(ButtonDefaults.IconSize)
+ //                           modifier = Modifier.size(35.dp)
                         )
-                        Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+
                         //Text("")
 
                     }
+                    Spacer(Modifier.size(ButtonDefaults.IconSpacing))
                     Text(
                         modifier = Modifier
                             .weight(7f)
