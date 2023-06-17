@@ -60,7 +60,7 @@ dependencies {
     implementation 'androidx.wear.compose:compose-material3:+'
     kapt 'com.google.dagger:hilt-compiler:2.46.1'
 
-
+    implementation 'androidx.compose.material:material'
     implementation('com.google.accompanist:accompanist-permissions:0.31.3-beta')
 
     implementation "androidx.navigation:navigation-compose:2.7.0-beta01"

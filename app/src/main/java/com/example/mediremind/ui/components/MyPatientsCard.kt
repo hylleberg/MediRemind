@@ -89,15 +89,19 @@ fun MyPatientsCard(
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 patientModel.medicine.forEach{ medListElement ->
+                    val durTime =
+                        (timestampToLocalDateTime(medListElement.medtime).toEpochSecond(
+                            UTC
+                        ) - LocalDateTime.now().toEpochSecond(UTC))/60
+                    if(durTime>=0){
+
+
                     Row(
 
                     ){
 
                         Icon(painter = painterResource(id = R.drawable.acute), contentDescription = "acute", Modifier.size(25.dp))
-                        val durTime =
-                            (timestampToLocalDateTime(medListElement.medtime).toEpochSecond(
-                                UTC
-                            ) - LocalDateTime.now().toEpochSecond(UTC))/60
+
 
                         val textColor: Color
                         if(durTime<=60){
@@ -110,6 +114,9 @@ fun MyPatientsCard(
                             style = MaterialTheme.typography.titleMedium,
                             color = textColor,
                         )
+                    }
+                    }else{
+                        Log.d("mypatient card", "negative duration, won't post")
                     }
 
                 }

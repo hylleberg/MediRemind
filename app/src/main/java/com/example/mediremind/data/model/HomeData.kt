@@ -29,6 +29,4 @@ val timeUpdateList = listOf(
     HomeData("4", "0", Timestamp.now().seconds + ((r.nextInt(high - low) + low) * 60)),
     HomeData("4", "1", Timestamp.now().seconds + ((r.nextInt(high - low) + low) * 60)),
     HomeData("4", "2", Timestamp.now().seconds + ((r.nextInt(high - low) + low) * 60)),
-
-
     )
