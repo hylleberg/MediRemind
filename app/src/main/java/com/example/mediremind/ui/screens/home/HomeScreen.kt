@@ -24,41 +24,10 @@ fun HomeScreen(viewModel: HomeScreenViewModel = hiltViewModel()) {
 
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center,
     horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(
-            text = homeState.counter.toString(),
-            modifier = androidx.compose.ui.Modifier
-                .padding(2.dp)
-                .wrapContentSize()
-                .clickable {
-                    viewModel.onCounterClicked()
 
-                }
-        )
-        Text(
-            text = homeState.title,
-            modifier = androidx.compose.ui.Modifier
-                .padding(2.dp)
-                .wrapContentSize()
-                .clickable {
-                    viewModel.onTitleClicked()
-
-                }
-        )
 
 
     }
 
 }
 
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    Text(
-        text = "Home screen!",
-        modifier = Modifier
-            .padding(2.dp)
-            .fillMaxSize()
-            .wrapContentSize()
-    )
-
-}

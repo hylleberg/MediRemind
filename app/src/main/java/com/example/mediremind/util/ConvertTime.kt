@@ -10,8 +10,8 @@ import java.time.format.DateTimeFormatter
 
 
 
-fun timestampToLocalDateTime(timestamp: Timestamp): LocalDateTime {
-    val tempTimestamp = timestamp.seconds * 1000
+fun timestampToLocalDateTime(timestamp: Long): LocalDateTime {
+    val tempTimestamp = timestamp * 1000
     Log.d("timestamp", tempTimestamp.toString())
     return LocalDateTime.ofInstant(Instant.ofEpochMilli(tempTimestamp), ZoneId.systemDefault())
 

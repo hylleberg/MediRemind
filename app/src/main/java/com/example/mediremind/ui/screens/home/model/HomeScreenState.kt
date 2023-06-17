@@ -1,8 +1,9 @@
 package com.example.mediremind.ui.screens.home.model
 
+import com.example.mediremind.data.model.HomeData
+import com.example.mediremind.data.model.timeUpdateList
+
 
 data class HomeScreenState(
-    val counter:Int = 3,
-    val title:String = "test state",
-
+    val homedata: List<HomeData> = timeUpdateList,
 )

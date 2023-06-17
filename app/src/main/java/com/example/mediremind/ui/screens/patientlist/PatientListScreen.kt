@@ -124,7 +124,6 @@ fun PatientListScreen(
                     verticalAlignment = Alignment.Top
                 ) {}
             }
-            Log.d("lazycol patlist", patientListState.patientList[0].toString())
             items(patientListState.patientList) { patient ->
                 PatientCard(patient) {
                     viewModel.onCardClick(it)

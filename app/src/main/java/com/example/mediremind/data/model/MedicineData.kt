@@ -16,8 +16,7 @@ data class MedicineData(
     val medname: String = "",
     val meddose: String = "",
     val medexp: String = "",
-    @ServerTimestamp
-    val medtime: Timestamp = Timestamp.now(),
+    val medtime: Long = Timestamp.now().seconds,
     var alarmtime: LocalDateTime = timestampToLocalDateTime(medtime),
     val medadm: String = ""
 )
