@@ -74,6 +74,8 @@ fun MedicineCard(medicineModel: MedicineData) {
     val sizePx = with(LocalDensity.current) { 230.dp.toPx() }
     val anchors = mapOf(0f to 0, sizePx to 1) // Maps anchor points (in px) to states
 
+
+
     Log.d("swipe", swipeableState.currentValue.toString())
 
     if (swipeableState.currentValue == 0) {
@@ -229,13 +231,23 @@ fun MedicineCard(medicineModel: MedicineData) {
             }
         }
         if (expandedState) {
+
             Text(
                 modifier = Modifier
                     .padding(horizontal = 12.dp, vertical = 2.dp),
                 text = "Administrationsvej: " + medicineModel.medadm,
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-                fontWeight = FontWeight.Normal,
-                maxLines = 4,
+               // fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+               // fontWeight = FontWeight.Normal,
+               // maxLines = 4,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                modifier = Modifier
+                    .padding(horizontal = 12.dp, vertical = 2.dp),
+                text = medicineModel.medexp,
+               // fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+               // fontWeight = FontWeight.Normal,
+               // maxLines = 4,
                 overflow = TextOverflow.Ellipsis
             )
         }
