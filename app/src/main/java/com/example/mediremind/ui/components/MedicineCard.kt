@@ -9,6 +9,8 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Arrangement.Center
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,6 +26,8 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FractionalThreshold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.rememberSwipeableState
 import androidx.compose.material.swipeable
 import androidx.compose.material3.Card
@@ -64,7 +68,6 @@ fun MedicineCard(medicineModel: MedicineData) {
     var backgroundColor = MaterialTheme.colorScheme.tertiary
     var swipeBgColor = MaterialTheme.colorScheme.tertiaryContainer
     var swipeButtonColor = MaterialTheme.colorScheme.onTertiaryContainer
-
 
 
     val width = 280.dp
@@ -189,7 +192,19 @@ fun MedicineCard(medicineModel: MedicineData) {
                         .width(50.dp)
                         .size(squareSize / 2)
                         .background(swipeButtonColor)
-                )
+                        ,
+
+                    ) {
+
+                        Icon(
+                            Icons.Filled.KeyboardArrowRight,
+                            contentDescription = "swipe",
+                            Modifier.align(Alignment.Center)
+
+                            )
+
+
+                }
             }
 
         }
@@ -236,18 +251,18 @@ fun MedicineCard(medicineModel: MedicineData) {
                 modifier = Modifier
                     .padding(horizontal = 12.dp, vertical = 2.dp),
                 text = "Administrationsvej: " + medicineModel.medadm,
-               // fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-               // fontWeight = FontWeight.Normal,
-               // maxLines = 4,
+                // fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                // fontWeight = FontWeight.Normal,
+                // maxLines = 4,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
                 modifier = Modifier
                     .padding(horizontal = 12.dp, vertical = 2.dp),
                 text = medicineModel.medexp,
-               // fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-               // fontWeight = FontWeight.Normal,
-               // maxLines = 4,
+                // fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                // fontWeight = FontWeight.Normal,
+                // maxLines = 4,
                 overflow = TextOverflow.Ellipsis
             )
         }
